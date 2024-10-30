@@ -2,44 +2,44 @@ import path from "node:path";
 import { promises as fs, Dirent } from "node:fs"; // 使用 fs.promises 和 Dirent
 
 const REPO_URL =
-  "https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/";
+    "https://raw.githubusercontent.com/QingRex/LoonKissSurge/refs/heads/main/";
 const ROOT_DIR = process.cwd(); // 根目录
 const OUTPUT_DIR = path.join(ROOT_DIR, "public");
 
 // 仅包括特定后缀类型的文件
 const allowedExtensions = [
-  ".sgmodule",
-  ".list",
-  ".txt",
-  ".js",
-  ".json",
-  ".gitignore",
-  ".md",
+    ".sgmodule",
+    ".list",
+    ".txt",
+    ".js",
+    ".json",
+    ".gitignore",
+    ".md",
 ];
 const allowedDirectories = ["Official", "Surge", "Beta"];
 
 const prioritySorter = (a: Dirent, b: Dirent) => {
-  if (a.isDirectory() && !b.isDirectory()) return -1;
-  if (!a.isDirectory() && b.isDirectory()) return 1;
-  if (a.isDirectory() && b.isDirectory()) {
-    if (a.name === "Official") return -1;
-    if (b.name === "Official") return 1;
-  }
-  return a.name.localeCompare(b.name);
+    if (a.isDirectory() && !b.isDirectory()) return -1;
+    if (!a.isDirectory() && b.isDirectory()) return 1;
+    if (a.isDirectory() && b.isDirectory()) {
+        if (a.name === "Official") return -1;
+        if (b.name === "Official") return 1;
+    }
+    return a.name.localeCompare(b.name);
 };
 
 // 生成目录树
 async function walk(dir: string, baseUrl: string) {
-  let tree = "";
-  const entries = await fs.readdir(dir, { withFileTypes: true });
-  entries.sort(prioritySorter);
+    let tree = "";
+    const entries = await fs.readdir(dir, { withFileTypes: true });
+    entries.sort(prioritySorter);
 
-  for (const entry of entries) {
-    const fullPath = path.join(dir, entry.name);
-    const url = `${baseUrl}${encodeURIComponent(entry.name)}`;
+    for (const entry of entries) {
+        const fullPath = path.join(dir, entry.name);
+        const url = `${baseUrl}${encodeURIComponent(entry.name)}`;
 
-    if (entry.isDirectory() && allowedDirectories.includes(entry.name)) {
-      tree += `
+        if (entry.isDirectory() && allowedDirectories.includes(entry.name)) {
+            tree += `
                 <li class="folder">
                     ${entry.name}
                     <ul>
@@ -47,14 +47,14 @@ async function walk(dir: string, baseUrl: string) {
                     </ul>
                 </li>
             `;
-    } else if (allowedExtensions.some((ext) => entry.name.endsWith(ext))) {
-      tree += `
+        } else if (allowedExtensions.some((ext) => entry.name.endsWith(ext))) {
+            tree += `
                 <li>
                     <a class="file" href="${url}" target="_blank">${entry.name}
                         <a
                             style="border-bottom: none"
                             href="surge:///install-module?url=${encodeURIComponent(
-                              url
+                                url
                             )}"
                             target="_blank"
                         >
@@ -68,7 +68,7 @@ async function walk(dir: string, baseUrl: string) {
                         <a
                             style="border-bottom: none"
                             href="scriptable:///run/SurgeModuleTool?url=${encodeURIComponent(
-                              url
+                                url
                             )}"
                             target="_blank"
                         >
@@ -82,13 +82,13 @@ async function walk(dir: string, baseUrl: string) {
                     </a>
                 </li>
             `;
+        }
     }
-  }
-  return tree;
+    return tree;
 }
 
 function generateHtml(tree: string) {
-  return `
+    return `
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -109,7 +109,7 @@ function generateHtml(tree: string) {
             Thanks To All Surge Contributors
             </p>
             <p>Last Build: ${new Date().toLocaleString("zh-CN", {
-              timeZone: "Asia/Shanghai",
+                timeZone: "Asia/Shanghai",
             })}</p>
             <br>
             <span>ℹ️ 一键导入操作说明</span>
@@ -145,19 +145,19 @@ function generateHtml(tree: string) {
 }
 
 async function writeHtmlFile(html: string) {
-  const htmlFilePath = path.join(OUTPUT_DIR, "index.html");
-  await fs.writeFile(htmlFilePath, html, "utf8");
+    const htmlFilePath = path.join(OUTPUT_DIR, "index.html");
+    await fs.writeFile(htmlFilePath, html, "utf8");
 }
 
 // 构建
 async function build() {
-  await fs.mkdir(OUTPUT_DIR, { recursive: true });
+    await fs.mkdir(OUTPUT_DIR, { recursive: true });
 
-  const tree = await walk(ROOT_DIR, REPO_URL);
-  const html = generateHtml(tree);
-  await writeHtmlFile(html);
+    const tree = await walk(ROOT_DIR, REPO_URL);
+    const html = generateHtml(tree);
+    await writeHtmlFile(html);
 }
 
 build().catch((err) => {
-  console.error("Error during build:", err);
+    console.error("Error during build:", err);
 });
