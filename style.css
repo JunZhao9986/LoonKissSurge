@@ -1,0 +1,96 @@
+/* 基础样式 */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* 明亮模式 */
+body {
+    background-color: #ffffff;
+    color: #333333;
+}
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+}
+
+/* 黑暗模式 */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #1f1f1f;
+        color: #e0e0e0;
+    }
+
+    a {
+        color: #66ccff;
+    }
+
+    ul li {
+        background-color: #2a2a2a;
+    }
+
+    ul li:hover {
+        background-color: #3a3a3a;
+    }
+}
+
+/* 标题样式 */
+header {
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+header h1 {
+    font-size: 1.8em;
+    margin-bottom: 0.2em;
+}
+
+/* 列表样式 */
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li {
+    padding: 8px;
+    margin: 4px 0;
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+ul li:hover {
+    background-color: #e8e8e8;
+}
+
+ul li img {
+    margin-right: 8px;
+}
+
+/* 响应式设计 */
+@media (max-width: 600px) {
+    header h1 {
+        font-size: 1.5em;
+    }
+
+    .container {
+        padding: 10px;
+    }
+}
