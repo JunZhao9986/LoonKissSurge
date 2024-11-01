@@ -123,14 +123,14 @@ DOMAIN-SUFFIX,miaozhen.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,ubixioe.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,unityads.unity3d.com,REJECT,extended-matching,pre-matching
 DOMAIN-SUFFIX,v.smtcdns.com,REJECT,extended-matching,pre-matching
-DOMAIN-SUFFIX,zijieapi.com,REJECT-NO-DROP,extended-matching,pre-matching # 会导致番茄页面打开缓慢
-DOMAIN-KEYWORD,-ad-sign.byteimg.com,REJECT,extended-matching,pre-matching
+DOMAIN-SUFFIX,zijieapi.com,REJECT-DROP,extended-matching,pre-matching # 会导致番茄页面打开缓慢
+DOMAIN-KEYWORD,-ad-sign.byteimg.com,REJECT-DROP,extended-matching,pre-matching
 DOMAIN-KEYWORD,ads.g.doubleclick,REJECT,extended-matching,pre-matching
 DOMAIN-KEYWORD,asiad.byteactivity,REJECT,extended-matching,pre-matching
 DOMAIN-KEYWORD,pangolin-sdk-toutiao,REJECT,extended-matching,pre-matching
 DOMAIN-KEYWORD,pangolin.snssdk.com,REJECT,extended-matching,pre-matching
 DOMAIN-KEYWORD,pglstatp-toutiao,REJECT,extended-matching,pre-matching
-DOMAIN-KEYWORD,video-cn.snssdk.com,REJECT,extended-matching,pre-matching
+DOMAIN-KEYWORD,video-cn.snssdk.com,REJECT-DROP,extended-matching,pre-matching
 
 #>海尔智家
 DOMAIN-SUFFIX,ehaier.com,REJECT,extended-matching,pre-matching
