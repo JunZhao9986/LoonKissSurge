@@ -1,3 +1,5 @@
+/** @format */
+
 import path from "node:path";
 import { promises as fs, Dirent } from "node:fs"; // 使用 fs.promises 和 Dirent
 
@@ -225,6 +227,9 @@ function generateHtml(tree: string) {
             
                 document.querySelectorAll('.folder').forEach(folder => {
                     folder.addEventListener('click', (event) => {
+                        if (event.target.classList.contains('file')) {
+                                return; 
+                                }
                         event.stopPropagation();
                         folder.classList.toggle('collapsed');
                     });
